@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="user86_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuthorAndRedDataUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BedType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomsHotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdCity" Type="int" Nullable="false" />
+          <Property Name="IdBedType" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="image" Nullable="false" />
+          <Property Name="RoomNumber" Type="int" Nullable="false" />
+          <Property Name="IsFree" Type="bit" />
+        </EntityType>
+        <Association Name="FK_RoomsHotel_BedType">
+          <End Role="BedType" Type="Self.BedType" Multiplicity="1" />
+          <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BedType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomsHotel">
+              <PropertyRef Name="IdBedType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomsHotel_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomsHotel">
+              <PropertyRef Name="IdCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="user86_dbModelStoreContainer">
+          <EntitySet Name="AuthorAndRedDataUser" EntityType="Self.AuthorAndRedDataUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BedType" EntityType="Self.BedType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomsHotel" EntityType="Self.RoomsHotel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RoomsHotel_BedType" Association="Self.FK_RoomsHotel_BedType">
+            <End Role="BedType" EntitySet="BedType" />
+            <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomsHotel_Cities" Association="Self.FK_RoomsHotel_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="user86_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuthorAndRedDataUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BedType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RoomsHotel" Relationship="Self.FK_RoomsHotel_BedType" FromRole="BedType" ToRole="RoomsHotel" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RoomsHotel" Relationship="Self.FK_RoomsHotel_Cities" FromRole="Cities" ToRole="RoomsHotel" />
+        </EntityType>
+        <EntityType Name="RoomsHotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdCity" Type="Int32" Nullable="false" />
+          <Property Name="IdBedType" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BedType" Relationship="Self.FK_RoomsHotel_BedType" FromRole="RoomsHotel" ToRole="BedType" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_RoomsHotel_Cities" FromRole="RoomsHotel" ToRole="Cities" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="RoomNumber" Type="Int32" Nullable="false" />
+          <Property Name="IsFree" Type="String" />
+        </EntityType>
+        <Association Name="FK_RoomsHotel_BedType">
+          <End Role="BedType" Type="Self.BedType" Multiplicity="1" />
+          <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BedType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomsHotel">
+              <PropertyRef Name="IdBedType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomsHotel_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomsHotel">
+              <PropertyRef Name="IdCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="user86_dbEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuthorAndRedDataUser" EntityType="Self.AuthorAndRedDataUser" />
+          <EntitySet Name="BedType" EntityType="Self.BedType" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" />
+          <EntitySet Name="RoomsHotel" EntityType="Self.RoomsHotel" />
+          <AssociationSet Name="FK_RoomsHotel_BedType" Association="Self.FK_RoomsHotel_BedType">
+            <End Role="BedType" EntitySet="BedType" />
+            <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomsHotel_Cities" Association="Self.FK_RoomsHotel_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="user86_dbModelStoreContainer" CdmEntityContainer="user86_dbEntities4">
+          <EntitySetMapping Name="AuthorAndRedDataUser">
+            <EntityTypeMapping TypeName="user86_dbModel.AuthorAndRedDataUser">
+              <MappingFragment StoreEntitySet="AuthorAndRedDataUser">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BedType">
+            <EntityTypeMapping TypeName="user86_dbModel.BedType">
+              <MappingFragment StoreEntitySet="BedType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="user86_dbModel.Cities">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomsHotel">
+            <EntityTypeMapping TypeName="user86_dbModel.RoomsHotel">
+              <MappingFragment StoreEntitySet="RoomsHotel">
+                <ScalarProperty Name="IsFree" ColumnName="IsFree" />
+                <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="IdCity" ColumnName="IdCity" />
+                <ScalarProperty Name="IdBedType" ColumnName="IdBedType" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

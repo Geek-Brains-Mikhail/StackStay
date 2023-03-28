@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="user86_dbModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BedType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RoomsHotel" Relationship="Self.FK_RoomsHotel_BedType" FromRole="BedType" ToRole="RoomsHotel" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RoomsHotel" Relationship="Self.FK_RoomsHotel_Cities" FromRole="Cities" ToRole="RoomsHotel" />
+  </EntityType>
+  <EntityType Name="RoomsHotel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdCity" Type="Int32" Nullable="false" />
+    <Property Name="IdBedType" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BedType" Relationship="Self.FK_RoomsHotel_BedType" FromRole="RoomsHotel" ToRole="BedType" />
+    <NavigationProperty Name="Cities" Relationship="Self.FK_RoomsHotel_Cities" FromRole="RoomsHotel" ToRole="Cities" />
+  </EntityType>
+  <Association Name="FK_RoomsHotel_BedType">
+    <End Role="BedType" Type="Self.BedType" Multiplicity="1" />
+    <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BedType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoomsHotel">
+        <PropertyRef Name="IdBedType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomsHotel_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RoomsHotel">
+        <PropertyRef Name="IdCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="user86_dbEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BedType" EntityType="Self.BedType" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" />
+    <EntitySet Name="RoomsHotel" EntityType="Self.RoomsHotel" />
+    <AssociationSet Name="FK_RoomsHotel_BedType" Association="Self.FK_RoomsHotel_BedType">
+      <End Role="BedType" EntitySet="BedType" />
+      <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomsHotel_Cities" Association="Self.FK_RoomsHotel_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

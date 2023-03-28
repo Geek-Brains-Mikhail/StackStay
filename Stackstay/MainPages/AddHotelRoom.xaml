@@ -1,0 +1,88 @@
+﻿<Page x:Class="Stackstay.MainPages.AddHotelRoom"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Stackstay.MainPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1166"
+      Title="AddHotelRoom">
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="White">
+            <TextBlock Text="ALL Listing" Style="{DynamicResource TextBlockHeader}"/>
+            <TextBlock Text="BildSearch" Style="{DynamicResource TextBlockBilding}" FontWeight="Bold"/>
+            <TextBlock Text="BildAccount" Style="{DynamicResource TextBlockBilding}" Margin="961,52,0,0" VerticalAlignment="Top"/>
+        </Grid>
+
+        <StackPanel Margin="50px 50px 50px 0" Grid.Row="1">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>  
+                </Grid.RowDefinitions>
+                 <TextBlock Text="Edit Details:"  Style="{DynamicResource MainTextBlock}"  FontSize="25" FontWeight="Bold" Padding="0 0 0 40" Grid.Row="0"/>
+                <Button Width="590" Height="250"  Grid.Row="1" Cursor="Hand" x:Name="AddPhotoInAddingRoomInHotel" Click="AddPhotoInAddingRoomInHotel_Click" Background="Transparent"> 
+                    <Image Source="/Images/DefaultHoteelRoomImages.png" Width="590" Height="250" x:Name="ViewRoomHotel"/>
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate    TargetType="{x:Type  Button}">
+                                        <Border Background="{TemplateBinding Background}" >
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Grid Grid.Row="2" HorizontalAlignment="Center">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel HorizontalAlignment="Left" Margin=" 0 0 20 0">
+                        <TextBlock Text="Room Name:" Style="{DynamicResource MainTextBlock}" FontSize="20" FontWeight="Bold" Padding="0 20 0 0"/>
+                        <TextBox x:Name="RoomNameInput" Style="{DynamicResource TBInputData}"  Text="{Binding RoomName}"  />
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Left"   Grid.Column="1" Grid.Row="1">
+                        <TextBlock Text="Price:" Style="{DynamicResource MainTextBlock}" FontSize="20" FontWeight="Bold" Padding="0 20 0 0"/>
+                        <TextBox x:Name="PriceInput" Style="{DynamicResource TBInputData}"    Text="{Binding Price}"  />
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Left"   Grid.Column="0" Grid.Row="1">
+                        <TextBlock Text="Bed Type: " Style="{DynamicResource MainTextBlock}" FontSize="20" FontWeight="Bold" Padding="0 20 0 0" />
+                        <ComboBox  Style="{ DynamicResource  ComboBoxDat}" Name="CBBedTypeInput" DisplayMemberPath="Name" SelectedItem="{Binding BedType}"/>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Left"   Grid.Column="1" Grid.Row="0">
+                        <TextBlock Text="City:" Style="{DynamicResource MainTextBlock}" FontSize="20" FontWeight="Bold" Padding="0 20 0 0"/>
+                        <ComboBox  Style="{ DynamicResource  ComboBoxDat}" Name="CBCityInput" DisplayMemberPath="Name" SelectedItem="{Binding Cities}" />
+                    </StackPanel>
+
+
+                </Grid>
+                <Button Content="Save Details" Grid.Row="3"  Style="{ DynamicResource MainOperationBtn}"
+                        Width="245" Height="65" Margin="0 79 0 0 " x:Name="AddHotelNewRoom" Click="AddHotelNewRoom_Click"/>
+            </Grid>
+            
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="user86_dbModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BedType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoomsHotel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoomName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IdCity" Type="int" Nullable="false" />
+    <Property Name="IdBedType" Type="int" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_RoomsHotel_BedType">
+    <End Role="BedType" Type="Self.BedType" Multiplicity="1" />
+    <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BedType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoomsHotel">
+        <PropertyRef Name="IdBedType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomsHotel_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="RoomsHotel" Type="Self.RoomsHotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RoomsHotel">
+        <PropertyRef Name="IdCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="user86_dbModel1StoreContainer">
+    <EntitySet Name="BedType" EntityType="Self.BedType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoomsHotel" EntityType="Self.RoomsHotel" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_RoomsHotel_BedType" Association="Self.FK_RoomsHotel_BedType">
+      <End Role="BedType" EntitySet="BedType" />
+      <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomsHotel_Cities" Association="Self.FK_RoomsHotel_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="RoomsHotel" EntitySet="RoomsHotel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
